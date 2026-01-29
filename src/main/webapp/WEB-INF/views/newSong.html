@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en,ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Song</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Add New Song</h2>
+    <form th:action="@{'/songs/save/' + ${playlistId}}" method="post" th:object="${newSong}">
+        <div class="mb-3">
+            <label>Song Name</label>
+            <input type="text" th:field="*{name}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Duration</label>
+            <input type="text" th:field="*{duration}" class="form-control" placeholder="e.g. 03:45" required>
+        </div>
+        <div class="mb-3">
+            <label>Genre</label>
+            <select th:field="*{genre}" class="form-control" required>
+                <option th:each="genre : ${genres}"
+                        th:value="${genre}"
+                        th:text="${genre}">
+                </option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a th:href="@{'/songs/playlist/' + ${playlistId}}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+</body>
+</html>
