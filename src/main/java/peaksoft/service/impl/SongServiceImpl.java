@@ -23,16 +23,16 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public Song getById(Long id) {
-        return null;
+        return songRepo.getById(id);
     }
 
     @Override
     public void updateSong(Long id, Song song) {
-
+        songRepo.updateSong(id, song);
     }
 
     @Override
     public void deleteSong(Long id) {
-
+        songRepo.deleteSong(id);
     }
 }

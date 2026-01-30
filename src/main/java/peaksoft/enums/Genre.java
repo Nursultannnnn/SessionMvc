@@ -4,5 +4,12 @@ public enum Genre {
     HIPHOP,
     JAZZ,
     ROCK,
-    FUNK;
+    FUNK,
+    POP,
+    CLASSICAL,
+    ELECTRONIC,
+    RNB,
+    INDIE,
+    METAL,
+    K_POP
 }

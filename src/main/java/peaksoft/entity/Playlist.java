@@ -21,7 +21,8 @@ public class Playlist {
     String title;
     String description;
     String imageUrl;
-    @OneToMany(mappedBy = "playlist", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+//    @OneToMany(mappedBy = "playlist", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL) // Или {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE}
     List<Song> songs;
 
 }

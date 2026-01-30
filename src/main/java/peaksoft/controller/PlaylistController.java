@@ -54,4 +54,11 @@ public class PlaylistController {
         return "redirect:/playlists";
     }
 
+    // delete playlist
+    @PostMapping("/delete/{id}")
+    public String deletePlaylist(@PathVariable("id") Long playlistId){
+        playlistService.deletePlaylist(playlistId);
+        return "redirect:/playlists";
+    }
+
 }

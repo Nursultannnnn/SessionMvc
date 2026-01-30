@@ -39,4 +39,33 @@ public class SongController {
         return "redirect:/songs/playlist/" + playlistId;
     }
 
+    // новшества
+    // 1. Открыть страницу редактирования
+    @GetMapping("/edit/{songId}")
+    public String editSong(@PathVariable("songId") Long songId, Model model) {
+        Song song = songService.getById(songId);
+        // Передаем ID плейлиста, чтобы кнопка "Cancel" и редирект знали куда идти
+        model.addAttribute("playlistId", song.getPlaylist().getId());
+        model.addAttribute("song", song);
+        model.addAttribute("genres", Genre.values());
+        return "editSong";
+    }
+
+    // 2. Сохранить изменения
+    @PostMapping("/update/{songId}")
+    public String updateSong(@PathVariable("songId") Long songId,
+                             @ModelAttribute("song") Song song,
+                             @RequestParam("playlistId") Long playlistId) {
+        songService.updateSong(songId, song);
+        return "redirect:/playlists/" + playlistId; // Возвращаемся в плейлист
+    }
+
+    // 3. Удалить песню
+    @PostMapping("/delete/{songId}/{playlistId}")
+    public String deleteSong(@PathVariable("songId") Long songId,
+                             @PathVariable("playlistId") Long playlistId) {
+        songService.deleteSong(songId);
+        return "redirect:/playlists/" + playlistId; // Возвращаемся в плейлист
+    }
+
 }

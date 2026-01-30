@@ -38,16 +38,23 @@ public class SongRepoImpl implements SongRepo {
 
     @Override
     public Song getById(Long id) {
-        return null;
+        return entityManager.find(Song.class, id);
     }
 
     @Override
-    public void updateSong(Long id, Song song) {
-
+    public void updateSong(Long id, Song newSong) {
+        Song song = entityManager.find(Song.class, id);
+        song.setName(newSong.getName());
+        song.setDuration(newSong.getDuration());
+        song.setGenre(newSong.getGenre());
+        entityManager.merge(song);
     }
 
     @Override
     public void deleteSong(Long id) {
-
+        Song song = entityManager.find(Song.class, id);
+        // Важно: перед удалением нужно убрать связь с плейлистом, если это не делается автоматически
+        song.setPlaylist(null);
+        entityManager.remove(song);
     }
 }

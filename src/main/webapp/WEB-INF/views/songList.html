@@ -3,38 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <title>Playlist Songs</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-          crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --spotify-black: #121212;
+            --spotify-dark: #181818;
+            --spotify-green: #1DB954;
+            --text-gray: #B3B3B3;
+        }
+
+        body {
+            background-color: var(--spotify-black);
+            color: white;
+            font-family: sans-serif;
+            min-height: 100vh;
+            padding-top: 40px;
+        }
+
+        h2 {
+            font-weight: 800;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        /* Кнопки */
+        .btn-spotify {
+            background-color: var(--spotify-green);
+            color: black;
+            font-weight: 700;
+            border-radius: 50px;
+            padding: 10px 24px;
+            border: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s;
+        }
+        .btn-spotify:hover {
+            background-color: #1ed760;
+            transform: scale(1.04);
+            color: black;
+        }
+
+        .btn-back {
+            color: var(--text-gray);
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+        .btn-back:hover {
+            color: white;
+        }
+
+        /* Таблица */
+        .table-dark {
+            --bs-table-bg: transparent;
+            color: var(--text-gray);
+            margin-top: 20px;
+        }
+
+        .song-row:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        .song-row td {
+            border: none;
+            vertical-align: middle;
+            padding: 12px;
+            border-bottom: 1px solid #333;
+        }
+
+        .song-title {
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container mt-5">
-    <h2>🎵 Songs in Playlist</h2>
-    <a th:href="@{'/songs/add/' + ${playlistId}}" class="btn btn-success mb-3">Add Song</a>
+<div class="container">
+    <div class="mb-4">
+        <a th:href="@{'/playlists/' + ${playlistId}}" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Back to Playlist
+        </a>
+    </div>
 
-    <table class="table table-bordered">
+    <div class="d-flex justify-content-between align-items-end mb-4">
+        <div>
+            <span class="text-uppercase fw-bold" style="color: var(--text-gray); font-size: 0.8rem;">List View</span>
+            <h2>Songs in Playlist</h2>
+        </div>
+        <a th:href="@{'/songs/add/' + ${playlistId}}" class="btn-spotify shadow">
+            <i class="fas fa-plus"></i> Add Song
+        </a>
+    </div>
+
+    <table class="table table-dark table-hover">
         <thead>
-        <tr>
-            <th>Title</th>
-            <th>Duration</th>
-            <th>Genre</th>
+        <tr style="border-bottom: 1px solid #555;">
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Genre</th>
+            <th scope="col"><i class="far fa-clock"></i> Duration</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="song : ${songs}">
-            <td th:text="${song.name}">Song Name</td>
+        <tr th:each="song, stat : ${songs}" class="song-row">
+            <td th:text="${stat.count}">1</td>
+            <td>
+                <div class="song-title" th:text="${song.name}">Song Name</div>
+            </td>
+            <td>
+                <span class="badge rounded-pill text-bg-secondary" th:text="${song.genre}">Genre</span>
+            </td>
             <td th:text="${song.duration}">00:00</td>
-            <td th:text="${song.genre}">Genre</td>
         </tr>
         </tbody>
     </table>
-    <a href="/playlists" class="btn btn-secondary">← Back to Playlists</a>
+
+    <div th:if="${songs.empty}" class="text-center mt-5 text-secondary">
+        <i class="fas fa-music fa-3x mb-3"></i>
+        <p>No songs in this playlist yet.</p>
+    </div>
+
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
 </html>

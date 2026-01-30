@@ -1,6 +1,7 @@
 package peaksoft.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import peaksoft.entity.Playlist;
 import peaksoft.repo.PlaylistRepo;
@@ -10,6 +11,7 @@ import java.util.List;
 @Service//add this annotation
 @RequiredArgsConstructor
 public class PlaylistServiceImpl implements PlaylistService {
+    @Qualifier("playlistRepo")// добавили эту анотацию почему . чтобы не выходило ошиибки насчет плейлист репо .
     private final PlaylistRepo playListRepo;
 
     @Override
