@@ -1,11 +1,13 @@
 package peaksoft.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import peaksoft.entity.Playlist;
 import peaksoft.repo.PlaylistRepo;
 import peaksoft.service.PlaylistService;
 
 import java.util.List;
+@Service//add this annotation
 @RequiredArgsConstructor
 public class PlaylistServiceImpl implements PlaylistService {
     private final PlaylistRepo playListRepo;

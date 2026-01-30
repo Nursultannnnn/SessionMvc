@@ -2,11 +2,15 @@ package peaksoft.repo.repoImpl;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import peaksoft.entity.Playlist;
 import peaksoft.repo.PlaylistRepo;
 
 import java.util.List;
+@Repository // <--- Добавлена аннотация
+@Transactional // Желательно добавить транзакционность здесь или в сервисе
 @RequiredArgsConstructor
 public class PlaylistRepoImpl implements PlaylistRepo {
     @PersistenceContext
